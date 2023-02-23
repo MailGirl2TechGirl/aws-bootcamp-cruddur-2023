@@ -2,12 +2,18 @@ FROM python:3.10-slim-buster
 
 WORKDIR /backend-flask
 
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+COPY script.py .
+COPY requirements.txt requirements.txt 
 
-COPY . .
+
+RUN pip install -r requirements.txt
+RUN chmod +x script.py
+
 
 ENV FLASK_ENV=development
 
+COPY . .
+
 EXPOSE ${PORT}
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567"]
+
+CMD ["python3", "script.py"]
