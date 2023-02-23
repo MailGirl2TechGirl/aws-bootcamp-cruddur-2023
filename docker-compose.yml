@@ -9,6 +9,7 @@ services:
       - "4567:4567"
     volumes:
       - ./backend-flask:/backend-flask
+       
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:4567/health"]
       interval: 30s
