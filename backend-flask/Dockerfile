@@ -10,3 +10,5 @@ COPY . .
 ENV FLASK_ENV=development
 
 EXPOSE ${PORT}
+
+CMD [ "python3", "app.py" ]
