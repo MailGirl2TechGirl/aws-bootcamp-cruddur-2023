@@ -18,3 +18,25 @@ Installed Docker on my local machine
 
 ![image](https://user-images.githubusercontent.com/124912958/220666405-0c69ed51-2c15-4888-9d7d-05757508e757.png)
 
+I cloned my repo from github to my local machine and when I tried docker compose up I was getting a react error but once I installed npm onto my local machine the front end was working.
+I then changed my enviromnet varisables to:
+```environment:
+      FRONTEND_URL: "http://localhost:3000"
+      BACKEND_URL: "http://localhost:4567"
+```
+Im still unable to see the backend and still troubleshooting this: 
+
+
+![iFM80tl](https://user-images.githubusercontent.com/124912958/221369245-677f5a50-c0ca-4339-9f9e-4876e44e2399.png)
+
+Pulled an image from Dockerhub: 
+
+![docker1](https://user-images.githubusercontent.com/124912958/221369290-0c978ab6-6eca-42bd-8bbf-e85f85333aa1.png)
+
+Pushed an image Dockerhub: 
+
+![docker2](https://user-images.githubusercontent.com/124912958/221369293-7b952258-3e60-437b-9a6d-b769cc6abf38.png)
+
+
+
+
