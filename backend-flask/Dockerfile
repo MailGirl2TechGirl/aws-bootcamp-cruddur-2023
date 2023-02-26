@@ -8,8 +8,8 @@ RUN pip install -r requirements.txt
 
 
 
-COPY run_flask.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/run_flask.sh
+COPY . run_flask.sh 
+RUN chmod +x run_flask.sh
 
 
 ENV FLASK_ENV=development
@@ -19,4 +19,4 @@ COPY . .
 
 EXPOSE ${PORT}
 
-CMD [ "/usr/local/bin/run_flask.sh"]
+CMD ["/bin/bash", "run_flask.sh"]
