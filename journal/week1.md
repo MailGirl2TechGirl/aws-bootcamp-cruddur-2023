@@ -29,6 +29,11 @@ Im still unable to see the backend and still troubleshooting this:
 
 ![iFM80tl](https://user-images.githubusercontent.com/124912958/221369245-677f5a50-c0ca-4339-9f9e-4876e44e2399.png)
 
+After 2 days of troubleshooting I finally got it working on my local machine. I had issues with ```npm i``` and it was giving me react errors. I had to change ownership of the directory as it was created with root. I also had to delete the package-lock.json and once I was able to run ```npm i``` without sudo, it worked. 
+
+![ubuntu-cruddur](https://i.imgur.com/04jtjs8.png)
+
+
 Pulled an image from Dockerhub: 
 
 ![docker1](https://user-images.githubusercontent.com/124912958/221369290-0c978ab6-6eca-42bd-8bbf-e85f85333aa1.png)
