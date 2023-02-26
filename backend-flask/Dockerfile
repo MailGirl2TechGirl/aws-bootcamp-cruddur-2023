@@ -7,7 +7,7 @@ COPY requirements.txt requirements.txt
 
 
 RUN pip install -r requirements.txt
-RUN chmod +x script.py
+RUN chmod +x run_flask.sh
 
 
 ENV FLASK_ENV=development
@@ -16,4 +16,4 @@ COPY . .
 
 EXPOSE ${PORT}
 
-CMD ["python3", "script.py"]
+CMD ["/usr/local/bin/run_flask.sh"]
