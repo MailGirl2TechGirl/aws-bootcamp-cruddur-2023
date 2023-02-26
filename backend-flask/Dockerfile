@@ -2,7 +2,7 @@ FROM python:3.10-slim-buster
 
 WORKDIR /backend-flask
 
-COPY script.py .
+COPY run_flask.sh .
 COPY requirements.txt requirements.txt 
 
 
@@ -16,4 +16,4 @@ COPY . .
 
 EXPOSE ${PORT}
 
-CMD ["/usr/local/bin/run_flask.sh"]
+CMD ["run_flask.sh"]
