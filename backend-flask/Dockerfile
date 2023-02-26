@@ -4,19 +4,15 @@ WORKDIR /backend-flask
 
 
 COPY requirements.txt requirements.txt 
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-
-
-COPY . run_flask.sh 
-RUN chmod +x run_flask.sh
 
 
 ENV FLASK_ENV=development
 
 
-COPY . .
+COPY . . 
 
 EXPOSE ${PORT}
 
-CMD ["/bin/bash", "run_flask.sh"]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567"]
