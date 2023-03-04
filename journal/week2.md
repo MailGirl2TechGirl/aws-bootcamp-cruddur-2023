@@ -148,3 +148,121 @@ aws xray create-group \
 AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
 AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
 ```
+# CloudWatch logs
+Added ```watchtower``` to requirements.txt 
+```
+cd /backend-flask
+```
+```
+pip install -r requirements.txt
+```
+# Add to app.py
+```
+import watchtower
+import logging
+from time import strftime
+```
+```
+# Configuring Logger to Use CloudWatch
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.DEBUG)
+console_handler = logging.StreamHandler()
+cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
+LOGGER.addHandler(console_handler)
+LOGGER.addHandler(cw_handler)
+
+```
+```
+@app.after_request
+def after_request(response):
+    timestamp = strftime('[%Y-%b-%d %H:%M]')
+    LOGGER.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
+    return response
+```
+# Add to ```docker-compose.yml``` to set env var in backend-flask
+```
+	  AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+```	  
+
+# Docker Compose Up gives me errors on the backend-flask
+![OeSxFzv](https://user-images.githubusercontent.com/124912958/222915070-66ffb6c9-25d0-4531-b439-4286e00c9a24.png)
+
+Code exactly like Andrew's video so troubleshooting
+
+
+# Success after changing logger.info to Logger.info in home_activities.py
+![KR3C921](https://user-images.githubusercontent.com/124912958/222914934-4019c81f-7482-4eaf-a133-3f73e454a71b.png)
+
+
+# However, no CloudWatch group created, investigating
+
+I was signed into the wrong AWS account 
+![pk1iUeX](https://user-images.githubusercontent.com/124912958/222914884-ffaa6edc-9d46-4363-bca4-ee681d5912f7.png)
+
+
+# Install rollbar
+Add to ```requirements.txt```
+
+```
+blinker
+rollbar
+```
+# Install dependencies
+```
+pip install -r requirements.txt
+```
+# Set rollbar access token
+```
+export ROLLBAR_ACCESS_TOKEN=""
+gp env ROLLBAR_ACCESS_TOKEN=""
+```
+# Add to backend-flask for ```docker-compose.yml```
+```
+ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
+```
+# Import for rollbar into ```app.py```
+```
+import rollbar
+import rollbar.contrib.flask
+from flask import got_request_exception
+```
+
+```
+rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
+@app.before_first_request
+def init_rollbar():
+    """init rollbar module"""
+    rollbar.init(
+        # access token
+        rollbar_access_token,
+        # environment name
+        'production',
+        # server root directory, makes tracebacks prettier
+        root=os.path.dirname(os.path.realpath(__file__)),
+        # flask already sets up logging
+        allow_logging_basic_config=False)
+
+    # send exceptions from `app` to rollbar, using flask's signal system.
+    got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
+	
+ ```
+	
+# Add endpoint to ```app.py``` to test rollbar
+```
+@app.route('/rollbar/test')
+def rollbar_test():
+    rollbar.report_message('Hello World!', 'warning')
+    return "Hello World!"	
+```
+# Rollbar Commit
+https://github.com/MailGirl2TechGirl/aws-bootcamp-cruddur-2023/commit/39545278609befd1c176e30a7dee3a142d278ec6
+# Working! 
+
+![iKBwc6E](https://user-images.githubusercontent.com/124912958/222914803-f8eab4ab-e338-47f5-98dc-0220c820dfc2.png)
+
+![8H1L9R5](https://user-images.githubusercontent.com/124912958/222914757-e1f6d5b7-772d-4157-a7c3-19f8bd3b3f21.png)
+
+	
+
