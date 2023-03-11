@@ -17,8 +17,27 @@
 				"ms-azuretools.vscode-docker",
 				"ms-python.python"
 			]
+		
+
+	},		
+	"forwardPorts": [3000],
+			"portsAttributes": {
+				"3000": {
+				"visibility": "public"
+			}
+			
+			
+		},
+		
+			
+			"forwardPorts": [4567],
+			"portsAttributes": {
+				"4567": {
+				"visibility": "public"
+			}
+		
+			
 		}
-	}
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
