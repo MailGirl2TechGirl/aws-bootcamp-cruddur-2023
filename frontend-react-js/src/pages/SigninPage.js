@@ -4,13 +4,15 @@ import {ReactComponent as Logo} from '../components/svg/logo.svg';
 import { Link } from "react-router-dom";
 
 // [TODO] Authenication
-import Cookies from 'js-cookie'
+import { Auth } from 'aws-amplify';
 
 export default function SigninPage() {
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [errors, setErrors] = React.useState('');
+
+  
 
   const onsubmit = async (event) => {
     setErrors('')
@@ -30,6 +32,7 @@ export default function SigninPage() {
     }
     return false
   }
+  
 
   const email_onchange = (event) => {
     setEmail(event.target.value);
