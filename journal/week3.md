@@ -27,22 +27,27 @@ const onsubmit = async (event) => {
 }
 ```
 
-https://i.imgur.com/oFTEaXN.png
+![oFTEaXN](https://user-images.githubusercontent.com/124912958/225163141-154c5b2c-4fd3-46a5-a7f3-de36c0a372a2.png)
+
 
 Finally got the correct error after going back through the videos and making some edits to my code
 
 #Created a user within Cognito
-https://i.imgur.com/TDv3I7J.png
+
+![TDv3I7J](https://user-images.githubusercontent.com/124912958/225163206-16038c69-27f7-497e-b2af-daeafd484885.png)
+
 
 #Used AWS cli to enter user information to confirm password
 
 ```
 aws cognito-idp admin-set-user-password --username mailgirl2techgirl --password xxxxxxxxxxx --user-pool-id us-east-1_TpOH8sxOe --permanent
 ```
-https://i.imgur.com/GiGORwg.png
+
+![GiGORwg](https://user-images.githubusercontent.com/124912958/225163329-8afa07c8-3e91-4802-b16f-ed88e1f529b2.png)
 
 #Added name and username to user in cognito 
-https://i.imgur.com/uUTHgQb.png
+
+![uUTHgQb](https://user-images.githubusercontent.com/124912958/225163398-9d2e9356-17bd-4f98-93dd-4f99c753bb59.png)
 
 Deleted user within Cognito 
 
@@ -111,14 +116,18 @@ const resend_code = async (event) => {
   }
   ```
   Getting this error: 
-  https://i.imgur.com/IHxfRHk.png
   
-  Recreated user pool as it was using username and email 
-  Once recreated I was able to sign up and received a confrimation email BUT now backend not working 
-  https://i.imgur.com/HtqHu0w.png
+ ![IHxfRHk](https://user-images.githubusercontent.com/124912958/225163460-2074d43a-677e-4c2c-894d-a0c76b741fed.png)
+  
+  Recreated user pool as it was using username and email.
+  
+  Once the user pool was recreated, I was able to sign up and received a confrimation email BUT now the backend is not working. 
+ 
+![HtqHu0w](https://user-images.githubusercontent.com/124912958/225163677-bdb77d79-3076-4b4f-9023-6317523cbacd.png)
   
   Restarted container and it is now working!
-  https://i.imgur.com/mTzzDAY.png
+ 
+![mTzzDAY](https://user-images.githubusercontent.com/124912958/225163515-04391f68-27dc-43f7-918c-6df9e5982179.png)
   
   #Recovery Page
   ```
@@ -145,3 +154,6 @@ const onsubmit_send_code = async (event) => {
     }
     return false
   }
+```
+
+Chose "Forgot Password" and successfully changed password with recovery
